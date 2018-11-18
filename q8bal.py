@@ -10,7 +10,7 @@ q = QuantumRegister(3)
 c = ClassicalRegister(3)
 # Create a Quantum Circuit
 qc = QuantumCircuit(q, c)
-qc.h(q)
+qc.h(q) # create superposition
 
 
 image = matplotlib_circuit_drawer(qc)
