@@ -2,12 +2,13 @@
 import math
 import numpy as np
 import qiskit
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, Aer
 from qiskit import execute
 from qiskit.tools.visualization import plot_histogram
 
 qiskit.IBMQ.load_accounts()
-backend = qiskit.providers.ibmq.least_busy(qiskit.IBMQ.backends(simulator=True))
+backend = Aer.get_backend('qasm_simulator')
+
 shots = 100
 
 # Cell
