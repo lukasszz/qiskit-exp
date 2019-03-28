@@ -1,3 +1,5 @@
+# https://qiskit.org/documentation/aqua/chemistry/qiskit_chemistry_execution.html#execution-modes
+
 from qiskit_chemistry import QiskitChemistry
 
 distance = 0.735
@@ -10,7 +12,7 @@ qiskit_chemistry_qpe_dict = {
         'atom': molecule,
         'basis': 'sto3g'
     },
-    'operator': {'name': 'hamiltonian', 'transformation': 'full', 'qubit_mapping': 'parity'},
+    'operator': {'name': 'hamiltonian', 'transformation': 'full', 'qubit_mapping': 'bravyi_kitaev'},
     'algorithm': {
         'name': 'QPE',
         'num_ancillae': 9,
@@ -36,10 +38,11 @@ qiskit_chemistry_ees_dict = {
 }
 
 # Execute the experiments
-result_qpe = QiskitChemistry().run(qiskit_chemistry_qpe_dict)
-result_ees = QiskitChemistry().run(qiskit_chemistry_ees_dict)
+result_qpe = QiskitChemistry().run(qiskit_chemistry_qpe_dict, output='h2_e0_parity.txt')
+#result_ees = QiskitChemistry().run(qiskit_chemistry_ees_dict)
 
 # Extract the energy values
-print('The ground-truth ground-state energy is       {}.'.format(result_ees['energy']))
+#print('The ground-truth ground-state energy is       {}.'.format(result_ees['energy']))
 print('The ground-state energy as computed by QPE is {}.'.format(result_qpe['energy']))
-print('The Hartree-Fock ground-state energy is       {}.'.format(result_ees['hf_energy']))
+#print('The Hartree-Fock ground-state energy is       {}.'.format(result_ees['hf_energy']))
+
