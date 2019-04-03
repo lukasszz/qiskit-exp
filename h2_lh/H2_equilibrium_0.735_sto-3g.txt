@@ -1,0 +1,204 @@
+HDF5 "H2_equilibrium_0.735_sto-3g.hdf5" {
+GROUP "/" {
+   GROUP "dipole" {
+      DATASET "nuclear_dipole_moment" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 3 ) / ( 3 ) }
+         DATA {
+         (0): 0, 0, 0
+         }
+      }
+      DATASET "reverse_dipole_sign" {
+         DATATYPE  H5T_ENUM {
+            H5T_STD_I8LE;
+            "FALSE"            0;
+            "TRUE"             1;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): FALSE
+         }
+      }
+      DATASET "x_dip_mo_ints" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 2 ) / ( 2, 2 ) }
+         DATA {
+         (0,0): 0, 0,
+         (1,0): 0, 0
+         }
+      }
+      DATASET "y_dip_mo_ints" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 2 ) / ( 2, 2 ) }
+         DATA {
+         (0,0): 0, 0,
+         (1,0): 0, 0
+         }
+      }
+      DATASET "z_dip_mo_ints" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 2 ) / ( 2, 2 ) }
+         DATA {
+         (0,0): 0, 0.927833,
+         (1,0): 0.927833, 0
+         }
+      }
+   }
+   GROUP "energy" {
+      DATASET "hf_energy" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): -1.117
+         }
+      }
+      DATASET "nuclear_repulsion_energy" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 0.719969
+         }
+      }
+   }
+   GROUP "geometry" {
+      DATASET "atom_symbol" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 1;
+            STRPAD H5T_STR_NULLPAD;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
+         DATA {
+         (0): "H", "H"
+         }
+      }
+      DATASET "atom_xyz" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 3 ) / ( 2, 3 ) }
+         DATA {
+         (0,0): 0, 0, -0.694474,
+         (1,0): 0, 0, 0.694474
+         }
+      }
+      DATASET "molecular_charge" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 0
+         }
+      }
+      DATASET "multiplicity" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 1
+         }
+      }
+      DATASET "num_atoms" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 2
+         }
+      }
+   }
+   GROUP "integrals" {
+      DATASET "mo_eri_ints" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 2, 2, 2 ) / ( 2, 2, 2, 2 ) }
+         DATA {
+         (0,0,0,0): 0.67571, 0,
+         (0,0,1,0): 0, 0.664582,
+         (0,1,0,0): 0, 0.180931,
+         (0,1,1,0): 0.180931, 0,
+         (1,0,0,0): 0, 0.180931,
+         (1,0,1,0): 0.180931, 0,
+         (1,1,0,0): 0.664582, 0,
+         (1,1,1,0): 0, 0.698574
+         }
+      }
+      DATASET "mo_onee_ints" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 2 ) / ( 2, 2 ) }
+         DATA {
+         (0,0): -1.25634, 0,
+         (1,0): 0, -0.471896
+         }
+      }
+   }
+   GROUP "orbitals" {
+      DATASET "mo_coeff" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2, 2 ) / ( 2, 2 ) }
+         DATA {
+         (0,0): 0.548302, 1.21833,
+         (1,0): 0.548302, -1.21833
+         }
+      }
+      DATASET "num_alpha" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 1
+         }
+      }
+      DATASET "num_beta" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 1
+         }
+      }
+      DATASET "num_orbitals" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+         DATA {
+         (0): 2
+         }
+      }
+      DATASET "orbital_energies" {
+         DATATYPE  H5T_IEEE_F64LE
+         DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
+         DATA {
+         (0): -0.580629, 0.676336
+         }
+      }
+   }
+   GROUP "origin_driver" {
+      DATASET "config" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 104;
+            STRPAD H5T_STR_NULLPAD;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "molecule h2 {
+              0 1
+              H  0.0 0.0 -0.3675
+              H  0.0 0.0  0.3675
+           }
+           
+           set {
+             basis sto-3g
+             scf_type pk
+           }"
+         }
+      }
+      DATASET "name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 4;
+            STRPAD H5T_STR_NULLPAD;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+         DATA {
+         (0): "PSI4"
+         }
+      }
+   }
+}
+}
