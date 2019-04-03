@@ -1,20 +1,18 @@
 """
-This experiment computes the H2 molecule energy starting from provided HDF5 file
-First with Exect method then o the quantum simulator.
+This experiment computes the H2 molecule energy starting from modified HDF5.
+The modification is made to one body integral (mo_onee_ints), it was changed to -1.1.
+It was made by the HDF5View (https://www.hdfgroup.org/downloads/hdfview/)
 
-https://nbviewer.jupyter.org/github/Qiskit/qiskit-tutorial/blob/master/qiskit/aqua/chemistry/dissociation_profile_of_molecule.ipynb
-
-Result:
+Results:
 === GROUND STATE ENERGY ===
 
-* Electronic ground state energy (Hartree): -1.857271629452
-  - computed part:      -1.857271629452
+* Electronic ground state energy (Hartree): -1.549384951393
+  - computed part:      -1.549384951393
   - frozen energy part: 0.0
   - particle hole part: 0.0
 ~ Nuclear repulsion energy (Hartree): 0.719968991279
-> Total ground state energy (Hartree): -1.137302638173
+> Total ground state energy (Hartree): -0.829415960114
   Measured:: Num particles: 2.000, S: 0.000, M: 0.00000
-
 
 """
 from qiskit import Aer
@@ -22,7 +20,7 @@ from qiskit_chemistry import QiskitChemistry
 
 qiskit_chemistry_dict = {
     'driver': {'name': 'HDF5'},
-    'HDF5': {'hdf5_input': 'H2_equilibrium_0.735_sto-3g.hdf5'},
+    'HDF5': {'hdf5_input': 'H2_mod.hdf5'},
     'operator': {'name': 'hamiltonian',
                  'qubit_mapping': 'parity',
                  'two_qubit_reduction': True},
