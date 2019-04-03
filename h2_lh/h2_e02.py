@@ -1,4 +1,8 @@
 # https://qiskit.org/documentation/aqua/chemistry/qiskit_chemistry_execution.html#execution-modes
+'''
+This experiments use PYSCF packege to compute hamiltonian electronic parameters for the provided H2 molecule (as a
+geometry) it compute it with exact method and also on the quantum computer using QPE algo.
+'''
 
 from qiskit_chemistry import QiskitChemistry
 
@@ -39,10 +43,9 @@ qiskit_chemistry_ees_dict = {
 
 # Execute the experiments
 result_qpe = QiskitChemistry().run(qiskit_chemistry_qpe_dict, output='h2_e0_parity.txt')
-#result_ees = QiskitChemistry().run(qiskit_chemistry_ees_dict)
+# result_ees = QiskitChemistry().run(qiskit_chemistry_ees_dict)
 
 # Extract the energy values
-#print('The ground-truth ground-state energy is       {}.'.format(result_ees['energy']))
+# print('The ground-truth ground-state energy is       {}.'.format(result_ees['energy']))
 print('The ground-state energy as computed by QPE is {}.'.format(result_qpe['energy']))
-#print('The Hartree-Fock ground-state energy is       {}.'.format(result_ees['hf_energy']))
-
+# print('The Hartree-Fock ground-state energy is       {}.'.format(result_ees['hf_energy']))
