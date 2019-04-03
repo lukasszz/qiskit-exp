@@ -33,7 +33,8 @@ def encode_bitstring(bitstring, qr, cr, inverse=False):
         desired_vector[pos] = amplitude
 
     if not inverse:
-        qc.initialize(desired_vector, [qr[i] for i in range(n)])
+        # qc.initialize(desired_vector, [qr[i] for i in range(n)])
+        qc.initialize(desired_vector, qr)
     else:
         qc.initialize(desired_vector, [qr[i] for i in range(n)]).inverse()  # invert the circuit
 
