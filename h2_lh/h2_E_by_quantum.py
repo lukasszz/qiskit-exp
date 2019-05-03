@@ -27,7 +27,7 @@ qubitOp = ferOp.mapping(map_type='parity', threshold=0.00000001)
 # Obliczenie klasyczne
 exact_eigensolver = ExactEigensolver(qubitOp, k=1)
 ret = exact_eigensolver.run()
-print('The computed energy is: {:.12f}'.format(ret['eigvals'][0].real))
+print('The classically computed energy is: {:.12f}'.format(ret['eigvals'][0].real))
 
 backend = Aer.get_backend('statevector_simulator')
 
