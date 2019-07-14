@@ -14,7 +14,7 @@ for b in backends:
     print(b.name() + " status: ", end='')
     print(b.status())
     st: BackendStatus = b.status()
-    backends_status.append({'pendging_jobs': st.pending_jobs,
+    backends_status.append({'pending_jobs': st.pending_jobs,
                             'name': st.backend_name,
                             'operational': st.operational})
 
