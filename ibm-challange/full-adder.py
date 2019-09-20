@@ -1,3 +1,6 @@
+"""
+https://github.com/quantum-challenge/2019/blob/master/problems/week1/week1_en.ipynb
+"""
 from qiskit import Aer, QuantumRegister, ClassicalRegister, QuantumCircuit, execute
 
 backend = Aer.get_backend('qasm_simulator')
