@@ -7,29 +7,41 @@ backend = Aer.get_backend('qasm_simulator')
 
 
 class FullAdder:
+    """
+    Input:
+    A input
+    B input
+    X carry in
+
+    Reuslt:
+    S sum
+    C carry out
+    """
 
     def __init__(self):
-        self.q = QuantumRegister(7)
-        self.c = ClassicalRegister(7)
+        self.q = QuantumRegister(6)
+        self.c = ClassicalRegister(6)
         self.circ = QuantumCircuit()
         self.circ.add_register(self.q)
         self.circ.add_register(self.c)
-        # s1c1 is the register for half adder summation - for the AB bits
-        self.A, self.B, self.X, self.s1, self.c1, self.S, self.C = self.q
+        # c1s1 is the register for half adder summation - for the AB bits
+        self.A, self.B, self.X, self.c1, self.S, self.C = self.q
         self.result_state = []
-        self.result = {'ABX': '00', 's1c1': '00', 'SC': '00'}
+        self.result = {'ABX': '00', 'c1': '0', 'CS': '00'}
 
     def build_circ(self):
-        self.circ.cx(self.A, self.s1)
-        self.circ.cx(self.B, self.s1)
+        self.circ.cx(self.A, self.S)
+        self.circ.cx(self.B, self.S)
+        self.circ.cx(self.X, self.S)
         self.circ.ccx(self.A, self.B, self.c1)
         self.circ.barrier()
 
-        self.circ.cx(self.X, self.S)
-        self.circ.cx(self.S, self.C)
+        self.circ.cx(self.X, self.C)
+        self.circ.cx(self.c1, self.C)
+        self.circ.ccx(self.X, self.S, self.C)
+        self.circ.barrier()
 
         self.circ.measure(self.q, self.c)
-        self.circ.ccx(self.X, self.S, self.C)
 
     def input(self, abx):
         if '1' == abx[0]:
@@ -47,59 +59,35 @@ class FullAdder:
         if len(st) == 1:
             # self.result_state = list(st.keys())[0][::-1]
             self.result_state = list(st.keys())[0]
-            self.result['ABX'] = self.result_state[4:7][::-1]
-            self.result['s1c1'] = self.result_state[2:4]
-            self.result['SC'] = self.result_state[0:2]
+            self.result['ABX'] = self.result_state[3:6][::-1]
+            self.result['c1'] = self.result_state[2:3]
+            self.result['CS'] = self.result_state[0:2]
         else:
             print("Unexpected output")
             print(st)
 
     def print_result_state(self):
-        print("Input ABX=%s, s1c1=%s result SC=%s " % (self.result['ABX'], self.result['s1c1'], self.result['SC']))
+        print(self.result_state)
+        print("Input ABX=%s, c1=%s result CS=%s " % (self.result['ABX'], self.result['c1'], self.result['CS']))
 
 
-# print(circ)
+def test(abx, cs):
+    fa = FullAdder()
+    fa.input(abx)
+    fa.build_circ()
+    # print(fa.circ)
+    fa.run()
+    fa.print_result_state()
+    assert cs == fa.result['CS']
 
 
 if '__main__' == __name__:
-    print('abc')
-    fa = FullAdder()
-    fa.input('100')
-    fa.build_circ()
-    # print(fa.circ)
-    fa.run()
-    fa.print_result_state()
-    assert '01' == fa.result['s1c1']
-    assert '00' == fa.result['SC']
-
-    fa = FullAdder()
-    fa.input('110')
-    fa.build_circ()
-    # print(fa.circ)
-    fa.run()
-    fa.print_result_state()
-    assert '10' == fa.result['s1c1']
-
-    fa = FullAdder()
-    fa.input('000')
-    fa.build_circ()
-    # print(fa.circ)
-    fa.run()
-    fa.print_result_state()
-    assert '00' == fa.result['s1c1']
-
-    fa = FullAdder()
-    fa.input('010')
-    fa.build_circ()
-    # print(fa.circ)
-    fa.run()
-    fa.print_result_state()
-    assert '01' == fa.result['s1c1']
-
-    fa = FullAdder()
-    fa.input('001')
-    fa.build_circ()
-    # print(fa.circ)
-    fa.run()
-    fa.print_result_state()
-    assert '00' == fa.result['s1c1']
+    #     ABX    CS
+    test('000', '00')
+    test('001', '01')
+    test('010', '01')
+    test('011', '10')
+    test('100', '01')
+    test('101', '10')
+    test('110', '10')
+    test('111', '11')
