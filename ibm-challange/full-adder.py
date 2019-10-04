@@ -1,7 +1,11 @@
 """
 https://github.com/quantum-challenge/2019/blob/master/problems/week1/week1_en.ipynb
 """
+import json
+
 from qiskit import Aer, QuantumRegister, ClassicalRegister, QuantumCircuit, execute
+from qiskit.transpiler import PassManager
+from qiskit.transpiler.passes import Unroller
 
 backend = Aer.get_backend('qasm_simulator')
 
@@ -79,6 +83,7 @@ def test(abx, cs):
     fa.run()
     fa.print_result_state()
     assert cs == fa.result['CS']
+    return fa.result['CS']
 
 
 if '__main__' == __name__:
@@ -91,3 +96,14 @@ if '__main__' == __name__:
     test('101', '10')
     test('110', '10')
     test('111', '11')
+
+    # now let's check the quantum cost of this circuit by using the Unroller.
+    fa = FullAdder()
+    fa.build_circ()
+    pass_ = Unroller(['u3', 'cx'])
+    pm = PassManager(pass_)
+    new_circuit = pm.run(fa.circ)
+    print(new_circuit)
+    print(new_circuit.count_ops())
+    with open('wk1_output.txt', 'w') as f:
+        f.write(json.dumps(new_circuit.count_ops()))
