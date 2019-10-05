@@ -27,7 +27,7 @@ def inversion_about_average2(circ, qr):
     # circ.h(qr)
 
 
-def groover11_ancila():
+def grover11_ancila():
     q = QuantumRegister(3)
     c = ClassicalRegister(3)
     circ = QuantumCircuit()
@@ -53,7 +53,7 @@ def groover11_ancila():
     return circ
 
 
-def groover11():
+def grover11():
     q = QuantumRegister(2)
     c = ClassicalRegister(2)
     circ = QuantumCircuit()
@@ -69,7 +69,7 @@ def groover11():
     return circ
 
 
-def groover10_ancila():
+def grover10_ancila():
     q = QuantumRegister(3)
     c = ClassicalRegister(3)
     circ = QuantumCircuit()
@@ -95,7 +95,7 @@ def groover10_ancila():
     return circ
 
 
-def groover10():
+def grover10():
     q = QuantumRegister(2)
     c = ClassicalRegister(2)
     circ = QuantumCircuit()
@@ -117,28 +117,28 @@ def groover10():
 
 def run_circ():
     print("Groover 11")
-    circ = groover11()
+    circ = grover11()
     backend = Aer.get_backend('qasm_simulator')
     job = execute(circ, backend=backend, shots=1024)
     st = job.result().get_counts()
     print(st)
 
     print("Groover 10")
-    circ = groover10()
+    circ = grover10()
     backend = Aer.get_backend('qasm_simulator')
     job = execute(circ, backend=backend, shots=1024)
     st = job.result().get_counts()
     print(st)
 
     print("Groover 10 ancila")
-    circ = groover10_ancila()
+    circ = grover10_ancila()
     backend = Aer.get_backend('qasm_simulator')
     job = execute(circ, backend=backend, shots=1024)
     st = job.result().get_counts()
     print(st)
 
     print("Groover 11 ancila")
-    circ = groover11_ancila()
+    circ = grover11_ancila()
     backend = Aer.get_backend('qasm_simulator')
     job = execute(circ, backend=backend, shots=1024)
     st = job.result().get_counts()
