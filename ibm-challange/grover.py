@@ -1,4 +1,8 @@
+import json
+
 from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit, execute, Aer
+from qiskit.transpiler import PassManager
+from qiskit.transpiler.passes import Unroller
 
 
 def inversion_about_average(circ, qr):
@@ -27,7 +31,7 @@ def inversion_about_average2(circ, qr):
     # circ.h(qr)
 
 
-def grover11_ancila():
+def grover11_ancilla():
     q = QuantumRegister(3)
     c = ClassicalRegister(3)
     circ = QuantumCircuit()
@@ -35,7 +39,7 @@ def grover11_ancila():
     circ.add_register(c)
 
 
-    circ.x(q[2]) # X on ancila qbit
+    circ.x(q[2]) # X on ancilla qbit
 
     # H
     circ.h(q[0:2])
@@ -69,7 +73,7 @@ def grover11():
     return circ
 
 
-def grover10_ancila():
+def grover10_ancilla():
     q = QuantumRegister(3)
     c = ClassicalRegister(3)
     circ = QuantumCircuit()
@@ -77,17 +81,24 @@ def grover10_ancila():
     circ.add_register(c)
 
 
-    circ.x(q[2]) # X on ancila qbit
+    circ.x(q[2]) # X on ancilla qbit
 
     # H
     circ.h(q[0:2])
 
-    # Oracle
+    # Oracle from example
+    # circ.h(q[2])
+    # circ.x(q[0])
+    # circ.ccx(q[0], q[1], q[2])
+    # circ.x(q[0])
+    # circ.h(q[2])
+
+    # My Oracle
     circ.h(q[2])
-    circ.x(q[0])
+    circ.z(q[1])
     circ.ccx(q[0], q[1], q[2])
-    circ.x(q[0])
     circ.h(q[2])
+
     inversion_about_average(circ, q)
 
     circ.measure(q, c)
@@ -130,19 +141,29 @@ def run_circ():
     st = job.result().get_counts()
     print(st)
 
-    print("Groover 10 ancila")
-    circ = grover10_ancila()
+
+    print("Groover 11 ancilla")
+    circ = grover11_ancilla()
     backend = Aer.get_backend('qasm_simulator')
     job = execute(circ, backend=backend, shots=1024)
     st = job.result().get_counts()
     print(st)
 
-    print("Groover 11 ancila")
-    circ = grover11_ancila()
+    print("Groover 10 ancilla")
+    circ = grover10_ancilla()
     backend = Aer.get_backend('qasm_simulator')
     job = execute(circ, backend=backend, shots=1024)
     st = job.result().get_counts()
     print(st)
+
+    # now let's check the quantum cost of this circuit by using the Unroller.
+    pass_ = Unroller(['u3', 'cx'])
+    pm = PassManager(pass_)
+    new_circuit = pm.run(circ)
+    # print(new_circuit)
+    print(new_circuit.count_ops())
+    with open('wk2_output-last-run.txt', 'w') as f:
+        f.write(json.dumps(new_circuit.count_ops()))
 
     # plot_histogram(st)
 
