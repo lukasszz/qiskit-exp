@@ -17,7 +17,7 @@ circ.add_register(q)
 circ.add_register(c)
 
 
-def prepare_verts():
+def prepare_v1():
     """ Put vertices in the zones. Into the superposition state to check all the possibilites once.
     """
     circ.h(q[0:3])
@@ -60,7 +60,7 @@ def oracle():
     circ.cx(q[5], q[7])
 
 
-def oracle_phase_flip():
+def oracle_v2():
     """ Oracle is for finding the cuts grater than 2.
         So it checks if carry out (q6) from the half adder is 1
     """
@@ -74,7 +74,7 @@ def run():
 
 
 def max_cut_test_oracle():
-    prepare_verts()
+    prepare_v1()
     cutter_edge_checker(q[0], q[1], q[3])
     cutter_edge_checker(q[1], q[2], q[4])
     count_cuts()
@@ -134,15 +134,19 @@ def max_cut_v2_find_solution():
     prepare_v2()
     circ.barrier()
 
+    # Oracle part
     cutter_edge_checker(q[0], q[1], q[3])
     cutter_edge_checker(q[1], q[2], q[4])
     count_cuts()
-    oracle_phase_flip()
+    oracle_v2()
+    circ.barrier()
+
     clean_helper_registers()
     circ.barrier()
 
     amplitude_amplification(0, 1, 2)
     circ.barrier()
+
     circ.measure(q[0:3], c[0:3])
     res = run()
 
