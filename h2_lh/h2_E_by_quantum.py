@@ -1,14 +1,14 @@
 import numpy as np
 
 from qiskit import Aer
-from qiskit_chemistry.aqua_extensions.components.variational_forms import UCCSD
+from qiskit.chemistry.aqua_extensions.components.variational_forms import UCCSD
 
-from qiskit_aqua import QuantumInstance
-from qiskit_aqua.algorithms import ExactEigensolver, VQE
-from qiskit_aqua.components.optimizers import COBYLA
-from qiskit_chemistry import FermionicOperator
-from qiskit_chemistry.aqua_extensions.components.initial_states import HartreeFock
-from qiskit_chemistry.drivers import PySCFDriver, UnitsType
+from qiskit.aqua import QuantumInstance
+from qiskit.aqua.algorithms import ExactEigensolver, VQE
+from qiskit.aqua.components.optimizers import COBYLA
+from qiskit.chemistry import FermionicOperator
+from qiskit.chemistry.aqua_extensions.components.initial_states import HartreeFock
+from qiskit.chemistry.drivers import PySCFDriver, UnitsType
 
 '''
 H_2 Hamilton integral with  1.43 UnitsType.BOHR = 0.7414 A
