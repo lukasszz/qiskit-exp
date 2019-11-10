@@ -2,3 +2,4 @@ venv
 venv0.7
 .idea
 ibm_backends.pickle
+.ipynb_checkpoints
