@@ -5,9 +5,10 @@ import qiskit
 from qiskit import IBMQ
 from qiskit.providers.models import BackendStatus
 
-qiskit.IBMQ.load_accounts()
+qiskit.IBMQ.load_account()
 # backends = Aer.backends()
-backends = IBMQ.backends()
+my_provider = IBMQ.get_provider()
+backends = my_provider.backends()
 
 backends_status = []
 for b in backends:
